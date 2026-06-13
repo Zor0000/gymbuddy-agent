@@ -30,10 +30,8 @@ body {
 .status .ok { color: var(--green); font-size: 12px; }
 .status .off { color: #e25c3c; font-size: 12px; }
 
-/* split */
-.split { display: grid; grid-template-columns: 1fr 1fr; flex: 1; min-height: 0; }
-.left { border-right: 1px solid var(--line); min-height: 0; }
-.right { min-height: 0; }
+/* single column */
+.single-column { flex: 1; min-height: 0; max-width: 800px; width: 100%; margin: 0 auto; border-left: 1px solid var(--line); border-right: 1px solid var(--line); }
 
 /* chat */
 .chat { display: flex; flex-direction: column; height: 100%; }

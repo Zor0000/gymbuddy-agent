@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import ChatPanel, { Message } from "./components/ChatPanel";
-import GraphPanel from "./components/GraphPanel";
-import { ask, health, Graph } from "./api";
+import { ask, health } from "./api";
 
 export default function App() {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [graph, setGraph] = useState<Graph | null>(null);
   const [loading, setLoading] = useState(false);
-  const [nodes, setNodes] = useState<number | null>(null);
+  const [status, setStatus] = useState<string>("connecting...");
 
   useEffect(() => {
-    health().then((h) => setNodes(h.nodes ?? null));
+    health().then((h) => {
+      setStatus(h.status === "ok" ? "Aura Agent Connected" : "Missing API Keys");
+    });
   }, []);
 
   const handleAsk = async (q: string) => {
@@ -25,11 +25,10 @@ export default function App() {
       const res = await ask(q, history);
       setMessages((m) => [
         ...m,
-        { role: "agent", text: res.answer, exercises: res.exercises, tools: res.tools_used, latency: res.latency_ms },
+        { role: "agent", text: res.answer, latency: res.latency_ms },
       ]);
-      setGraph(res.graph);
     } catch (e: any) {
-      setMessages((m) => [...m, { role: "agent", text: `⚠️ ${e.message || "request failed"} — is the backend running on :8000?` }]);
+      setMessages((m) => [...m, { role: "agent", text: `⚠️ ${e.message || "request failed"}` }]);
     } finally {
       setLoading(false);
     }
@@ -42,16 +41,15 @@ export default function App() {
           <span className="logo">🏋️</span>
           <div>
             <h1>GymBuddy</h1>
-            <p>Graph-powered workout agent · Neo4j Aura + Groq</p>
+            <p>Powered by Neo4j Aura Agent</p>
           </div>
         </div>
         <div className="status">
-          {nodes != null ? <span className="ok">● {nodes} nodes live</span> : <span className="off">● offline</span>}
+          {status === "Aura Agent Connected" ? <span className="ok">● {status}</span> : <span className="off">● {status}</span>}
         </div>
       </header>
-      <main className="split">
-        <section className="left"><ChatPanel messages={messages} loading={loading} onAsk={handleAsk} /></section>
-        <section className="right"><GraphPanel graph={graph} /></section>
+      <main className="single-column">
+        <ChatPanel messages={messages} loading={loading} onAsk={handleAsk} />
       </main>
     </div>
   );
