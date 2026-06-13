@@ -1,0 +1,42 @@
+# Environments
+.venv/
+venv/
+env/
+.env
+.env.local
+
+# Data
+data/raw/
+data/processed/
+data/cache/
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Models / HF cache
+.cache/
+~/.cache/huggingface/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Build artifacts
+dist/
+build/
+
+# Notebooks
+notebooks/
+
+# Docs
+docs/
