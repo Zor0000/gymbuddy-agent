@@ -3,7 +3,7 @@ export default async function handler(req: any, res: any) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { question } = req.body;
+  const { sessionId, question } = req.body;
   const clientId = process.env.VITE_AURA_CLIENT_ID;
   const clientSecret = process.env.VITE_AURA_CLIENT_SECRET;
   const agentUrl = process.env.VITE_AURA_AGENT_URL;
@@ -38,7 +38,7 @@ export default async function handler(req: any, res: any) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        sessionId: "gymbuddy-" + Math.random().toString(36).substring(7),
+        sessionId: sessionId || "gymbuddy-session",
         input: question
       })
     });
