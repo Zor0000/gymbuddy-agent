@@ -7,11 +7,11 @@ export interface Message {
 }
 
 const EXAMPLES = [
-  "Bench is taken — alternative with dumbbells?",
-  "Build me a beginner push day at home with dumbbells",
-  "What can I train with kettlebells for my legs?",
-  "Give me an easier version of pistol squats",
-  "Something like a plank but harder",
+  "I'm at a gym with all equipment. The bench is taken, what's a good alternative to barbell bench press?",
+  "Build me a beginner push day routine using only dumbbells.",
+  "I am an intermediate lifter. What can I train with kettlebells for my legs?",
+  "I have full gym access but need an easier version of pistol squats.",
+  "Give me a bodyweight core exercise that is harder than a standard plank.",
 ];
 
 export default function ChatPanel({
